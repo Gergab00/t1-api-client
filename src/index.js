@@ -6,7 +6,7 @@
  * servicio, es necesario invocar `auth.login()` para obtener el token.
  */
 
-const auth = require('./services/authService');
+const auth = requre('./services/authService');
 const products = require('./services/productService');
 const files = require('./services/fileService');
 const catalogs = require('./services/catalogService');
