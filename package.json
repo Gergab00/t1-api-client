@@ -1,0 +1,30 @@
+{
+  "name": "t1-api-client",
+  "version": "1.0.0",
+  "description": "Cliente Node.js para la API T1Comercios. Permite autenticar, gestionar productos, subir archivos, consultar catálogos y pedidos.",
+  "main": "src/index.js",
+  "type": "commonjs",
+  "scripts": {
+    "test": "jest",
+    "prepare": "npm run build",
+    "build": "echo \"No hay paso de build necesario. El código fuente está en src/\""
+  },
+  "keywords": [
+    "t1",
+    "comercios",
+    "api",
+    "cliente",
+    "nodejs"
+  ],
+  "author": "Gerardo",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.7.0",
+    "dotenv": "^16.4.0",
+    "form-data": "^4.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.6.1",
+    "nock": "^13.3.2"
+  }
+}
