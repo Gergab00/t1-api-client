@@ -8,6 +8,7 @@
 // ANCHOR: dependencias
 const axios = require('axios'); // Se usa solicitud directa sin reutilizar httpClient (no hay token aún)
 const config = require('../config'); // Configuración global (credenciales y almacenamiento de token)
+const { AUTH_TOKEN_ENDPOINT } = require('../constants/const'); // Endpoint centralizado OIDC
 
 // ANCHOR: login-funcion
 /**
@@ -27,7 +28,7 @@ async function login() {
 
   try {
     const response = await axios.post(
-      'https://loginclaro.com/auth/realms/plataforma-claro/protocol/openid-connect/token', // NOTE: Endpoint fijo OpenID Connect.
+      AUTH_TOKEN_ENDPOINT, // NOTE: Uso de constante centralizada (ver constants/const.ts)
       params,
       { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
     );
