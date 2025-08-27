@@ -7,7 +7,7 @@
 
 // ANCHOR: dependencias
 const httpClient = require('../utils/httpClient'); // Cliente HTTP centralizado
-const { BRANDS_LIST_ENDPOINT, CATEGORY_TREE_ENDPOINT, CATEGORY_DETAIL_ENDPOINT } = require('../constants/const'); // Endpoints catalogación
+const { BRANDS_LIST_ENDPOINT, CATEGORY_TREE_ENDPOINT, CATEGORY_DETAIL_ENDPOINT, CATEGORY_MATCHES_ENDPOINT } = require('../constants/const'); // Endpoints catalogación
 
 // ANCHOR: list-brands
 /**
@@ -45,11 +45,23 @@ function getCategoryDetail(channelId, categoryId) {
   return httpClient.get(CATEGORY_DETAIL_ENDPOINT(channelId, categoryId));
 }
 
+// ANCHOR: get-category-matches
+/**
+ * Obtiene las posibles correspondencias (matches) para una categoría dada.
+ * @param {string|number} categoryId Identificador de la categoría base sobre la cual se buscan coincidencias.
+ * @returns {Promise<Object>} Promesa con la respuesta del API (lista de matches / equivalencias).
+ * @example
+ * const matches = await getCategoryMatches(11769);
+ */
+function getCategoryMatches(categoryId) {
+  return httpClient.get(CATEGORY_MATCHES_ENDPOINT(categoryId));
+}
+
 // ANCHOR: exports
 /**
  * Exporta las funciones públicas del servicio de catálogos.
  * @module catalogService
  */
-module.exports = { listBrands, getCategoryTree, getCategoryDetail };
+module.exports = { listBrands, getCategoryTree, getCategoryDetail, getCategoryMatches };
 
 // NOTE: Si en el futuro se añaden filtros de profundidad o paginación, crear funciones separadas para mantener SRP.
