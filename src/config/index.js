@@ -1,48 +1,66 @@
 /**
  * @file src/config/index.js
- * @description Carga y expone la configuración global del cliente T1Comercios.
- * Lee las variables de entorno definidas en un archivo `.env` o en el entorno
- * de ejecución. También permite la carga desde un archivo JSON opcional
- * (config.json). La configuración incluye la URL base del API y las
- * credenciales necesarias para obtener un token de autenticación.
+ * @description Módulo de configuración global del cliente T1Comercios.
+ * 1. Carga variables de entorno (.env) usando dotenv.
+ * 2. Intenta fusionar un archivo JSON opcional (config.json) para valores por defecto.
+ * 3. Expone un objeto mutable (por diseño) donde `accessToken` es rellenado por authService.
+ *
+ * Orden de precedencia de valores: process.env > config.json > fallback literal.
+ * NOTA: La mutabilidad controlada de `accessToken` facilita la inyección en interceptores.
  */
 
-const fs = require('fs');
-const path = require('path');
-const dotenv = require('dotenv');
+// ANCHOR: dependencias
+const fs = require('fs'); // Lectura de archivo config.json opcional
+const path = require('path'); // Resolución robusta de ruta
+const dotenv = require('dotenv'); // Carga de variables de entorno desde .env
 
-// Cargar variables de entorno desde .env si existe.
+// ANCHOR: carga-dotenv
+// INFO: Carga variables de entorno desde un archivo .env si está presente en el root del proyecto.
 dotenv.config();
 
-// Intentar cargar configuración JSON opcional (config.json)
+// ANCHOR: carga-json
+// SECTION: lectura-config-json
+// INFO: Se intenta cargar config.json para proporcionar valores por defecto versionables.
 let jsonConfig = {};
 const jsonPath = path.resolve(__dirname, '../../config.json');
 if (fs.existsSync(jsonPath)) {
   try {
     jsonConfig = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
   } catch (err) {
-    console.warn('No se pudo parsear config.json, se usará solo .env');
+    console.warn('No se pudo parsear config.json, se usará solo .env'); // WARN: Error de parseo no detiene ejecución.
   }
 }
 
+// ANCHOR: typedef-config
 /**
- * Objeto de configuración que centraliza valores sensibles y parámetros
- * utilizados por el cliente.
- *
+ * Objeto de configuración global.
  * @typedef {Object} Config
  * @property {string} baseURL URL base de la API T1Comercios.
- * @property {string} clientId Identificador de cliente usado para autenticar.
- * @property {string} username Usuario de acceso.
- * @property {string} password Contraseña de acceso.
- * @property {string|undefined} accessToken Token JWT asignado al autenticarse.
+ * @property {string} clientId Identificador del cliente (client_id OAuth/OIDC).
+ * @property {string} username Usuario para autenticación ROPC.
+ * @property {string} password Contraseña asociada.
+ * @property {string|undefined} accessToken Token JWT vigente (mutado tras login).
  */
 
+// ANCHOR: objeto-config
+/**
+ * Instancia de configuración (mutable solo en accessToken).
+ * Precedencia: env > json > fallback.
+ * @type {Config}
+ */
 const config = {
-  baseURL: process.env.T1_BASE_URL || jsonConfig.T1_BASE_URL || 'https://api.t1comercios.com',
-  clientId: process.env.T1_CLIENT_ID || jsonConfig.T1_CLIENT_ID || 'integradores',
+  baseURL: process.env.T1_BASE_URL || jsonConfig.T1_BASE_URL || 'https://api.t1comercios.com', // NOTE: Fallback a constante literal.
+  clientId: process.env.T1_CLIENT_ID || jsonConfig.T1_CLIENT_ID || 'integradores', // INFO: Valor por defecto común.
   username: process.env.T1_USERNAME || jsonConfig.T1_USERNAME || '',
   password: process.env.T1_PASSWORD || jsonConfig.T1_PASSWORD || '',
-  accessToken: undefined,
+  accessToken: undefined, // INFO: Se poblará tras autenticación.
 };
 
+// ANCHOR: export
+/**
+ * Exporta la configuración global para ser utilizada por servicios y utilidades.
+ */
 module.exports = config;
+
+// TODO: Exponer función para recargar config en caliente si se requiere rotación de credenciales.
+// OPTIMIZE: Validar tipos y presencia mínima (username/password) y advertir si faltan.
