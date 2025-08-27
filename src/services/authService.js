@@ -27,10 +27,9 @@ async function login() {
 
   try {
     const response = await axios.post(
-      '/auth/realms/plataforma-claro/protocol/openid-connect/token',
+      'https://loginclaro.com/auth/realms/plataforma-claro/protocol/openid-connect/token',
       params,
       {
-        baseURL: config.baseURL,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       }
     );

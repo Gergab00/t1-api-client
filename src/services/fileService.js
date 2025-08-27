@@ -8,6 +8,7 @@
 
 const httpClient = require('../utils/httpClient');
 const FormData = require('form-data');
+const { FILE_UPLOAD_ENDPOINT } = require('../constants/const');
 
 /**
  * Sube un archivo a un bucket de T1Comercios. La API requiere
@@ -28,7 +29,7 @@ function uploadFile(bucketName, fileBuffer, filename, mimetype) {
   // Por defecto el archivo es público; el valor 'false' lo hace público en T1
   form.append('private', 'false');
 
-  return httpClient.post(`/file/v1.1/${bucketName}`, form, { headers: form.getHeaders() });
+  return httpClient.post(FILE_UPLOAD_ENDPOINT(bucketName), form, { headers: form.getHeaders() });
 }
 
 module.exports = { uploadFile };

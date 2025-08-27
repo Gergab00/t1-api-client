@@ -8,6 +8,14 @@
  */
 
 const httpClient = require('../utils/httpClient');
+const {
+  PRODUCT_COLLECTION_ENDPOINT,
+  PRODUCT_ITEM_ENDPOINT,
+  PRODUCT_PAUSE_ENDPOINT,
+  PRODUCT_ACTIVATE_ENDPOINT,
+  PRODUCT_SKUS_ENDPOINT,
+  PRODUCT_WEBHOOK_EDIT_ENDPOINT,
+} = require('../constants/const');
 
 /**
  * Crea un nuevo producto en un comercio específico.
@@ -17,7 +25,7 @@ const httpClient = require('../utils/httpClient');
  * @returns {Promise<Object>} Objeto con datos del producto creado.
  */
 function createProduct(commerceId, productData) {
-  return httpClient.post(`/cm/v2/product/commerce/${commerceId}/product`, productData);
+  return httpClient.post(PRODUCT_COLLECTION_ENDPOINT(commerceId), productData);
 }
 
 /**
@@ -28,7 +36,7 @@ function createProduct(commerceId, productData) {
  * @returns {Promise<Object[]>} Lista de productos según la API.
  */
 function listProducts(commerceId, query = {}) {
-  return httpClient.get(`/cm/v2/product/commerce/${commerceId}/product`, { params: query });
+  return httpClient.get(PRODUCT_COLLECTION_ENDPOINT(commerceId), { params: query });
 }
 
 /**
@@ -41,7 +49,7 @@ function listProducts(commerceId, query = {}) {
  */
 function updateProduct(commerceId, productId, patch) {
   return httpClient.patch(
-    `/cm/v2/product/commerce/${commerceId}/product/${productId}`,
+    PRODUCT_ITEM_ENDPOINT(commerceId, productId),
     patch,
     { headers: { 'Content-Type': 'application/merge-patch+json' } }
   );
@@ -55,7 +63,7 @@ function updateProduct(commerceId, productId, patch) {
  * @returns {Promise<Object>} Detalle del producto.
  */
 function getProduct(commerceId, productId) {
-  return httpClient.get(`/cm/v2/product/commerce/${commerceId}/product/${productId}`);
+  return httpClient.get(PRODUCT_ITEM_ENDPOINT(commerceId, productId));
 }
 
 /**
@@ -66,7 +74,7 @@ function getProduct(commerceId, productId) {
  * @returns {Promise<Object>} Respuesta de la API tras la eliminación.
  */
 function deleteProduct(commerceId, productId) {
-  return httpClient.delete(`/cm/v2/product/commerce/${commerceId}/product/${productId}`);
+  return httpClient.delete(PRODUCT_ITEM_ENDPOINT(commerceId, productId));
 }
 
 /**
@@ -78,7 +86,7 @@ function deleteProduct(commerceId, productId) {
  * @returns {Promise<Object>} Respuesta de la API.
  */
 function pauseProducts(commerceId, ids, salesChannels) {
-  return httpClient.post(`/cm/v2/product/commerce/${commerceId}/pause/`, { ids, salesChannels });
+  return httpClient.post(PRODUCT_PAUSE_ENDPOINT(commerceId), { ids, salesChannels });
 }
 
 /**
@@ -90,7 +98,7 @@ function pauseProducts(commerceId, ids, salesChannels) {
  * @returns {Promise<Object>} Respuesta de la API.
  */
 function activateProducts(commerceId, ids, salesChannels) {
-  return httpClient.post(`/cm/v2/product/commerce/${commerceId}/active/`, { ids, salesChannels });
+  return httpClient.post(PRODUCT_ACTIVATE_ENDPOINT(commerceId), { ids, salesChannels });
 }
 
 /**
@@ -101,7 +109,7 @@ function activateProducts(commerceId, ids, salesChannels) {
  * @returns {Promise<Object[]>} Lista de SKUs.
  */
 function listSkus(commerceId, productId) {
-  return httpClient.get(`/cm/v2/product/commerce/${commerceId}/product/${productId}/sku`);
+  return httpClient.get(PRODUCT_SKUS_ENDPOINT(commerceId, productId));
 }
 
 module.exports = {

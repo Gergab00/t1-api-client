@@ -6,13 +6,18 @@
  */
 
 const httpClient = require('../utils/httpClient');
+const {
+  BRANDS_LIST_ENDPOINT,
+  CATEGORY_TREE_ENDPOINT,
+  CATEGORY_DETAIL_ENDPOINT,
+} = require('../constants/const');
 
 /**
  * Obtiene la lista de marcas oficiales.
  * @returns {Promise<Object[]>} Array de marcas.
  */
 function listBrands() {
-  return httpClient.get('/api-resource/api/v1/brands');
+  return httpClient.get(BRANDS_LIST_ENDPOINT);
 }
 
 /**
@@ -21,7 +26,7 @@ function listBrands() {
  * @returns {Promise<Object>} Estructura jerárquica de categorías.
  */
 function getCategoryTree(channelId) {
-  return httpClient.get(`/cm/v2/sales_channel/${channelId}/category/`);
+  return httpClient.get(CATEGORY_TREE_ENDPOINT(channelId));
 }
 
 /**
@@ -31,7 +36,7 @@ function getCategoryTree(channelId) {
  * @returns {Promise<Object>} Detalle de la categoría y atributos.
  */
 function getCategoryDetail(channelId, categoryId) {
-  return httpClient.get(`/cm/v2/sales_channel/${channelId}/category/${categoryId}`);
+  return httpClient.get(CATEGORY_DETAIL_ENDPOINT(channelId, categoryId));
 }
 
 module.exports = {

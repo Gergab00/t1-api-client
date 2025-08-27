@@ -7,6 +7,14 @@
 
 const httpClient = require('../utils/httpClient');
 const FormData = require('form-data');
+const {
+  ORDERS_LIST_ENDPOINT,
+  PURCHASE_ORDER_DOWNLOAD_ENDPOINT,
+  SHIPPING_LABEL_DOWNLOAD_ENDPOINT,
+  ORDER_GUIDE_UPLOAD_ENDPOINT,
+  ORDER_EVIDENCE_UPLOAD_ENDPOINT_V2,
+  ORDER_PART_CANCEL_ENDPOINT,
+} = require('../constants/const');
 
 /**
  * Lista los pedidos completos (Ordersfull) de un vendedor. Se pueden
@@ -17,7 +25,7 @@ const FormData = require('form-data');
  * @returns {Promise<Object[]>} Lista de pedidos con sus partidas.
  */
 function listOrders(sellerId, query = {}) {
-  return httpClient.get(`/kidal/v1/Ordersfull/seller/${sellerId}`, { params: query });
+  return httpClient.get(ORDERS_LIST_ENDPOINT(sellerId), { params: query });
 }
 
 /**
@@ -31,7 +39,7 @@ function listOrders(sellerId, query = {}) {
  */
 function downloadPurchaseOrder(sellerId, marketplace, orderId, paymentOrder) {
   return httpClient.get(
-    `/kidal/v1/order/seller/${sellerId}/marketplace/${marketplace}/order/${orderId}/payment_order/${paymentOrder}`,
+    PURCHASE_ORDER_DOWNLOAD_ENDPOINT(sellerId, marketplace, orderId, paymentOrder),
     { responseType: 'arraybuffer' }
   );
 }
@@ -47,7 +55,7 @@ function downloadPurchaseOrder(sellerId, marketplace, orderId, paymentOrder) {
  */
 function downloadShippingLabel(sellerId, marketplace, orderId, paymentOrder) {
   return httpClient.get(
-    `/kidal/v1/order/seller/${sellerId}/marketplace/${marketplace}/order/${orderId}/shipping_label/${paymentOrder}`,
+    SHIPPING_LABEL_DOWNLOAD_ENDPOINT(sellerId, marketplace, orderId, paymentOrder),
     { responseType: 'arraybuffer' }
   );
 }
@@ -63,10 +71,7 @@ function downloadShippingLabel(sellerId, marketplace, orderId, paymentOrder) {
  * @returns {Promise<Object>} Respuesta de la API.
  */
 function uploadOrderGuide(sellerId, marketplace, orderId, details) {
-  return httpClient.post(
-    `/kidal/v1/order/seller/${sellerId}/marketplace/${marketplace}/order/${orderId}/shipment`,
-    details
-  );
+  return httpClient.post(ORDER_GUIDE_UPLOAD_ENDPOINT(sellerId, marketplace, orderId), details);
 }
 
 /**
@@ -85,7 +90,7 @@ function uploadEvidence(sellerId, marketplace, orderId, shipmentId, fileBuffer, 
   const form = new FormData();
   form.append('evidencia', fileBuffer, { filename, contentType: mimetype });
   return httpClient.post(
-    `/order/seller/${sellerId}/marketplace/${marketplace}/order/${orderId}/shipment/${shipmentId}/evidence/`,
+    ORDER_EVIDENCE_UPLOAD_ENDPOINT_V2(sellerId, marketplace, orderId, shipmentId),
     form,
     { headers: form.getHeaders() }
   );
@@ -100,7 +105,7 @@ function uploadEvidence(sellerId, marketplace, orderId, shipmentId, fileBuffer, 
  * @returns {Promise<Object>} Respuesta de la API.
  */
 function cancelOrderPart(body) {
-  return httpClient.post('/kidal/v1/order/pedido/cancel', body);
+  return httpClient.post(ORDER_PART_CANCEL_ENDPOINT, body);
 }
 
 module.exports = {
