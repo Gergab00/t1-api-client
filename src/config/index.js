@@ -53,7 +53,16 @@ const config = {
   clientId: process.env.T1_CLIENT_ID || jsonConfig.T1_CLIENT_ID || 'integradores', // INFO: Valor por defecto común.
   username: process.env.T1_USERNAME || jsonConfig.T1_USERNAME || '',
   password: process.env.T1_PASSWORD || jsonConfig.T1_PASSWORD || '',
-  accessToken: undefined, // INFO: Se poblará tras autenticación.
+
+  // INFO: Se poblará tras autenticación.
+  // SECTION: almacenamiento de token en memoria (puede moverse a Redis/FS si se requiere persistencia)
+  accessToken: null,
+  refreshToken: null,
+  expiresAt: 0, // epoch ms
+
+  // SECTION: seguridad/tiempos
+  expirySkewSeconds: Number(process.env.T1_EXPIRY_SKEW_SECONDS || 60), // margen de seguridad para renovar antes
+  requestTimeoutMs: Number(process.env.T1_HTTP_TIMEOUT_MS || 10000),
 };
 
 // ANCHOR: export
