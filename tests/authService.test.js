@@ -7,6 +7,10 @@
 
 const nock = require('nock');
 const config = require('../src/config');
+// Mock del endpoint absoluto de auth para apuntar al baseURL durante pruebas
+jest.mock('../src/constants/const', () => ({
+  AUTH_TOKEN_ENDPOINT: `${require('../src/config').baseURL}/auth/realms/plataforma-claro/protocol/openid-connect/token`,
+}));
 const { login } = require('../src/services/authService');
 
 describe('authService', () => {

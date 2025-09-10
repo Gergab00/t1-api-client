@@ -11,6 +11,18 @@
 
 const nock = require('nock');
 const config = require('../src/config');
+// Mock de tokenManager para evitar llamadas reales de autenticación
+jest.mock('../src/utils/tokenManager', () => ({
+  ensureValidAccessToken: jest.fn().mockResolvedValue('test-token'),
+}));
+jest.mock('../src/constants/const', () => ({
+  PRODUCT_COLLECTION_ENDPOINT: (commerceId) => `/cm/v2/product/commerce/${commerceId}/product`,
+  PRODUCT_ITEM_ENDPOINT: (commerceId, productId) => `/cm/v2/product/commerce/${commerceId}/product/${productId}`,
+  PRODUCT_PAUSE_ENDPOINT: (commerceId) => `/cm/v2/product/commerce/${commerceId}/pause/`,
+  PRODUCT_ACTIVATE_ENDPOINT: (commerceId) => `/cm/v2/product/commerce/${commerceId}/active/`,
+  PRODUCT_SKUS_ENDPOINT: (commerceId, productId) => `/cm/v2/product/commerce/${commerceId}/product/${productId}/sku`,
+  PRODUCT_WEBHOOK_EDIT_ENDPOINT: (commerceId) => `/cm/v2/product/webhook/commerce/${commerceId}/product/edit`,
+}));
 const products = require('../src/services/productService');
 
 // Datos comunes de prueba
