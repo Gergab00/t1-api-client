@@ -4,6 +4,24 @@
   "description": "Cliente Node.js para la API T1Comercios. Permite autenticar, gestionar productos, subir archivos, consultar catálogos y pedidos.",
   "main": "src/index.js",
   "type": "commonjs",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gergab00/t1-api-client.git"
+  },
+  "homepage": "https://github.com/Gergab00/t1-api-client#readme",
+  "bugs": {
+    "url": "https://github.com/Gergab00/t1-api-client/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "src/**/*",
+    "openapi/**/*",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "scripts": {
     "test": "jest",
     "prepare": "npm run build",
@@ -22,6 +40,7 @@
   ],
   "author": "Gerardo",
   "license": "MIT",
+  "funding": "https://github.com/sponsors/Gergab00",
   "dependencies": {
     "axios": "^1.7.0",
     "dotenv": "^16.4.0",
