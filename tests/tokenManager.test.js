@@ -18,7 +18,7 @@ describe('tokenManager', () => {
     config.accessToken = null;
     config.refreshToken = null;
     config.expiresAt = 0;
-  jest.clearAllMocks();
+    jest.clearAllMocks();
   });
 
   it('isTokenValid retorna true solo si hay accessToken y no expiró', () => {
@@ -52,7 +52,12 @@ describe('tokenManager', () => {
   it('single-flight: múltiples llamadas concurrentes comparten la misma promesa', async () => {
     // Simula refresh lento con única resolución
     let resolver;
-    refresh.mockImplementationOnce(() => new Promise((res) => { resolver = res; }));
+    refresh.mockImplementationOnce(
+      () =>
+        new Promise((res) => {
+          resolver = res;
+        }),
+    );
 
     config.refreshToken = 'rt';
     config.accessToken = 'old';

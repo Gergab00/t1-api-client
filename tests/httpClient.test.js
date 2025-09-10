@@ -31,19 +31,18 @@ describe('httpClient', () => {
   });
 
   it('normaliza errores no-401 con {status, message}', async () => {
-    nock(config.baseURL)
-      .get('/notfound')
-      .reply(404, { message: 'Not Found' });
+    nock(config.baseURL).get('/notfound').reply(404, { message: 'Not Found' });
 
-    await expect(httpClient.get('/notfound')).rejects.toEqual({ status: 404, message: 'Not Found' });
+    await expect(httpClient.get('/notfound')).rejects.toEqual({
+      status: 404,
+      message: 'Not Found',
+    });
   });
 
   it('ante 401 reintenta una sola vez tras renovar token', async () => {
     const path = '/secure';
     // Primera respuesta 401
-    nock(config.baseURL)
-      .get(path)
-      .reply(401, { message: 'expired' });
+    nock(config.baseURL).get(path).reply(401, { message: 'expired' });
     // Reintento exitoso con Authorization actualizado
     nock(config.baseURL)
       .get(path)

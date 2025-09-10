@@ -17,11 +17,14 @@ jest.mock('../src/utils/tokenManager', () => ({
 }));
 jest.mock('../src/constants/const', () => ({
   PRODUCT_COLLECTION_ENDPOINT: (commerceId) => `/cm/v2/product/commerce/${commerceId}/product`,
-  PRODUCT_ITEM_ENDPOINT: (commerceId, productId) => `/cm/v2/product/commerce/${commerceId}/product/${productId}`,
+  PRODUCT_ITEM_ENDPOINT: (commerceId, productId) =>
+    `/cm/v2/product/commerce/${commerceId}/product/${productId}`,
   PRODUCT_PAUSE_ENDPOINT: (commerceId) => `/cm/v2/product/commerce/${commerceId}/pause/`,
   PRODUCT_ACTIVATE_ENDPOINT: (commerceId) => `/cm/v2/product/commerce/${commerceId}/active/`,
-  PRODUCT_SKUS_ENDPOINT: (commerceId, productId) => `/cm/v2/product/commerce/${commerceId}/product/${productId}/sku`,
-  PRODUCT_WEBHOOK_EDIT_ENDPOINT: (commerceId) => `/cm/v2/product/webhook/commerce/${commerceId}/product/edit`,
+  PRODUCT_SKUS_ENDPOINT: (commerceId, productId) =>
+    `/cm/v2/product/commerce/${commerceId}/product/${productId}/sku`,
+  PRODUCT_WEBHOOK_EDIT_ENDPOINT: (commerceId) =>
+    `/cm/v2/product/webhook/commerce/${commerceId}/product/edit`,
 }));
 const products = require('../src/services/productService');
 

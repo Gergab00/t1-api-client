@@ -20,9 +20,7 @@ describe('fileService', () => {
     const bucket = 'imagenes';
     const buf = Buffer.from('hello');
     const resp = { url: 'http://cdn/file.jpg' };
-    nock(config.baseURL)
-      .post(`/file/v1.1/${bucket}`)
-      .reply(200, resp);
+    nock(config.baseURL).post(`/file/v1.1/${bucket}`).reply(200, resp);
     const data = await uploadFile(bucket, buf, 'foto.jpg', 'image/jpeg');
     expect(data).toEqual(resp);
   });
