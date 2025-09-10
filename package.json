@@ -7,7 +7,11 @@
   "scripts": {
     "test": "jest",
     "prepare": "npm run build",
-    "build": "echo \"No hay paso de build necesario. El código fuente está en src/\""
+    "build": "echo \"No hay paso de build necesario. El código fuente está en src/\"",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "keywords": [
     "t1",
@@ -25,6 +29,11 @@
   },
   "devDependencies": {
     "jest": "^29.6.1",
-    "nock": "^13.3.2"
+    "nock": "^13.3.2",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.3",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "typescript": "^5.6.2"
   }
 }
