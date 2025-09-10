@@ -103,7 +103,7 @@ httpClient.interceptors.response.use(
         message: 'No autorizado (no se pudo renovar el token).',
       });
     }
-  }
+  },
 );
 
 // ANCHOR: export

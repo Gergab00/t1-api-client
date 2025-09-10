@@ -48,7 +48,7 @@ function listOrders(sellerId, query = {}) {
 function downloadPurchaseOrder(sellerId, marketplace, orderId, paymentOrder) {
   return httpClient.get(
     PURCHASE_ORDER_DOWNLOAD_ENDPOINT(sellerId, marketplace, orderId, paymentOrder),
-    { responseType: 'arraybuffer' }
+    { responseType: 'arraybuffer' },
   );
 }
 
@@ -64,7 +64,7 @@ function downloadPurchaseOrder(sellerId, marketplace, orderId, paymentOrder) {
 function downloadShippingLabel(sellerId, marketplace, orderId, paymentOrder) {
   return httpClient.get(
     SHIPPING_LABEL_DOWNLOAD_ENDPOINT(sellerId, marketplace, orderId, paymentOrder),
-    { responseType: 'arraybuffer' }
+    { responseType: 'arraybuffer' },
   );
 }
 
@@ -95,14 +95,22 @@ function uploadOrderGuide(sellerId, marketplace, orderId, details) {
  * @param {string} mimetype Tipo MIME del archivo (e.g. 'image/jpeg').
  * @returns {Promise<Object>} Promesa con la respuesta de la API.
  */
-function uploadEvidence(sellerId, marketplace, orderId, shipmentId, fileBuffer, filename, mimetype) {
+function uploadEvidence(
+  sellerId,
+  marketplace,
+  orderId,
+  shipmentId,
+  fileBuffer,
+  filename,
+  mimetype,
+) {
   const form = new FormData();
   // INFO: Campo 'evidencia' según especificación del endpoint.
   form.append('evidencia', fileBuffer, { filename, contentType: mimetype });
   return httpClient.post(
     ORDER_EVIDENCE_UPLOAD_ENDPOINT_V2(sellerId, marketplace, orderId, shipmentId),
     form,
-    { headers: form.getHeaders() }
+    { headers: form.getHeaders() },
   );
 }
 
@@ -123,7 +131,14 @@ function cancelOrderPart(body) {
  * Exporta las funciones públicas del servicio de órdenes.
  * @module orderService
  */
-module.exports = { listOrders, downloadPurchaseOrder, downloadShippingLabel, uploadOrderGuide, uploadEvidence, cancelOrderPart };
+module.exports = {
+  listOrders,
+  downloadPurchaseOrder,
+  downloadShippingLabel,
+  uploadOrderGuide,
+  uploadEvidence,
+  cancelOrderPart,
+};
 
 // NOTE: Mantener agrupadas descargas, cargas y actualizaciones para facilitar lectura.
 // TODO: Agregar función de actualización de estado masivo si la API lo expone en el futuro.

@@ -63,7 +63,7 @@ async function login() {
     const response = await axios.post(
       AUTH_TOKEN_ENDPOINT, // NOTE: Uso de constante centralizada (ver constants/const.ts)
       params,
-      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } },
     );
     // INFO: Guardamos access, refresh y expiración
     const { access_token, refresh_token, expires_in } = response.data || {};
@@ -73,7 +73,8 @@ async function login() {
     // ANCHOR: manejo-error-auth
     // INFO: Normaliza el mensaje priorizando la descripción específica del servidor.
     const errResp = error.response || {};
-    const message = (errResp.data && errResp.data.error_description) || error.message || 'Error de autenticación';
+    const message =
+      (errResp.data && errResp.data.error_description) || error.message || 'Error de autenticación';
     throw new Error(message);
   }
 }
@@ -94,11 +95,9 @@ async function refresh() {
   params.append('refresh_token', config.refreshToken);
 
   try {
-    const response = await axios.post(
-      AUTH_TOKEN_ENDPOINT,
-      params,
-      { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
-    );
+    const response = await axios.post(AUTH_TOKEN_ENDPOINT, params, {
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    });
 
     const { access_token, refresh_token, expires_in } = response.data || {};
     if (!access_token) throw new Error('No se obtuvo access_token en refresh');
@@ -107,7 +106,8 @@ async function refresh() {
     return access_token;
   } catch (error) {
     const errResp = error.response || {};
-    const message = (errResp.data && errResp.data.error_description) || error.message || 'Error en refresh_token';
+    const message =
+      (errResp.data && errResp.data.error_description) || error.message || 'Error en refresh_token';
     throw new Error(message);
   }
 }

@@ -7,7 +7,12 @@
 
 // ANCHOR: dependencias
 const httpClient = require('../utils/httpClient'); // Cliente HTTP centralizado
-const { BRANDS_LIST_ENDPOINT, CATEGORY_TREE_ENDPOINT, CATEGORY_DETAIL_ENDPOINT, CATEGORY_MATCHES_ENDPOINT } = require('../constants/const'); // Endpoints catalogación
+const {
+  BRANDS_LIST_ENDPOINT,
+  CATEGORY_TREE_ENDPOINT,
+  CATEGORY_DETAIL_ENDPOINT,
+  CATEGORY_MATCHES_ENDPOINT,
+} = require('../constants/const'); // Endpoints catalogación
 
 // ANCHOR: list-brands
 /**

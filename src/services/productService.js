@@ -63,11 +63,9 @@ function listProducts(commerceId, query = {}) {
  */
 function updateProduct(commerceId, productId, patch) {
   // INFO: Se define explícitamente el header de Content-Type para indicar formato merge-patch.
-  return httpClient.patch(
-    PRODUCT_ITEM_ENDPOINT(commerceId, productId),
-    patch,
-    { headers: { 'Content-Type': 'application/merge-patch+json' } }
-  );
+  return httpClient.patch(PRODUCT_ITEM_ENDPOINT(commerceId, productId), patch, {
+    headers: { 'Content-Type': 'application/merge-patch+json' },
+  });
 }
 
 // ANCHOR: get-product
@@ -134,7 +132,16 @@ function listSkus(commerceId, productId) {
  * Exporta el conjunto de funciones del servicio de productos.
  * @module productService
  */
-module.exports = { createProduct, listProducts, updateProduct, getProduct, deleteProduct, pauseProducts, activateProducts, listSkus };
+module.exports = {
+  createProduct,
+  listProducts,
+  updateProduct,
+  getProduct,
+  deleteProduct,
+  pauseProducts,
+  activateProducts,
+  listSkus,
+};
 
 // NOTE: Mantener orden lógico (CRUD, estado, relaciones) para facilitar lectura.
 // TODO: Añadir función para edición de producto vía webhook cuando el endpoint esté definido en la API.
