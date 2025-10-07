@@ -34,98 +34,98 @@ export const AUTH_TOKEN_ENDPOINT =
 // SECTION: catalogo-marcas-categorias
 // INFO: Endpoints relacionados con catálogos maestros (marcas / categorías).
 export const BRANDS_LIST_ENDPOINT = '/api-resource/api/v1/brands';
-export const CATEGORY_TREE_ENDPOINT = (channelId: string | number) =>
+export const CATEGORY_TREE_ENDPOINT = (channelId) =>
   `/cm/v2/sales_channel/${channelId}/category/`;
-export const CATEGORY_DETAIL_ENDPOINT = (channelId: string | number, categoryId: string | number) =>
+export const CATEGORY_DETAIL_ENDPOINT = (channelId, categoryId) =>
   `/cm/v2/sales_channel/${channelId}/category/${categoryId}`;
 
 // ANCHOR: archivos
 // INFO: Endpoints para operaciones de subida de archivos.
-export const FILE_UPLOAD_ENDPOINT = (bucketName: string) => `/file/v1.1/${bucketName}`;
+export const FILE_UPLOAD_ENDPOINT = (bucketName) => `/file/v1.1/${bucketName}`;
 
 // ANCHOR: pedidos
 // SECTION: pedidos-principales
 // INFO: Endpoints relacionados con órdenes (pedidos) y sus documentos asociados.
-export const ORDERS_LIST_ENDPOINT = (sellerId: string | number) =>
+export const ORDERS_LIST_ENDPOINT = (sellerId) =>
   `/kidal/v1/Ordersfull/seller/${sellerId}`;
 export const PURCHASE_ORDER_DOWNLOAD_ENDPOINT = (
-  sellerId: string | number,
-  marketplace: string,
-  orderId: string | number,
-  paymentOrder: string | number,
+  sellerId,
+  marketplace,
+  orderId,
+  paymentOrder,
 ) =>
   `/kidal/v1/order/seller/${sellerId}/marketplace/${marketplace}/order/${orderId}/payment_order/${paymentOrder}`;
 export const SHIPPING_LABEL_DOWNLOAD_ENDPOINT = (
-  sellerId: string | number,
-  marketplace: string,
-  orderId: string | number,
-  paymentOrder: string | number,
+  sellerId,
+  marketplace,
+  orderId,
+  paymentOrder,
 ) =>
   `/kidal/v1/order/seller/${sellerId}/marketplace/${marketplace}/order/${orderId}/shipping_label/${paymentOrder}`;
 export const ORDER_GUIDE_UPLOAD_ENDPOINT = (
-  sellerId: string | number,
-  marketplace: string,
-  orderId: string | number,
+  sellerId,
+  marketplace,
+  orderId,
 ) => `/kidal/v1/order/seller/${sellerId}/marketplace/${marketplace}/order/${orderId}/shipment`;
 export const ORDER_EVIDENCE_UPLOAD_ENDPOINT = (
-  sellerId: string | number,
-  marketplace: string,
-  orderId: string | number,
-  shipmentId: string | number,
+  sellerId,
+  marketplace,
+  orderId,
+  shipmentId,
 ) =>
   `/order/seller/${sellerId}/marketplace/${marketplace}/order/${orderId}/shipment/${shipmentId}/evidence/`;
 export const ORDER_PART_CANCEL_ENDPOINT = '/kidal/v1/order/pedido/cancel';
 
 // NOTE: El endpoint de evidencia correcto incluye prefijo /kidal/v1/ (verificado en colección Postman)
 export const ORDER_EVIDENCE_UPLOAD_ENDPOINT_V2 = (
-  sellerId: string | number,
-  marketplace: string,
-  orderId: string | number,
-  shipmentId: string | number,
+  sellerId,
+  marketplace,
+  orderId,
+  shipmentId,
 ) =>
   `/kidal/v1/order/seller/${sellerId}/marketplace/${marketplace}/order/${orderId}/shipment/${shipmentId}/evidence/`;
 
 // ANCHOR: pedidos-adicionales
 // INFO: Endpoints aún no integrados en los servicios, reservados para futuras implementaciones.
-export const ORDERS_STATISTICS_ENDPOINT = (sellerId: string | number) =>
+export const ORDERS_STATISTICS_ENDPOINT = (sellerId) =>
   `/kidal/v1/Ordersfull/statistics/seller/${sellerId}`;
 export const ORDER_COLOCATION_ENDPOINT = (
-  sellerId: string | number,
-  marketplace: string,
-  colocationId: string | number,
+  sellerId,
+  marketplace,
+  colocationId
 ) => `/kidal/v1/order/seller/${sellerId}/marketplace/${marketplace}/colocation/${colocationId}`;
 export const ORDER_SHIPMENT_STATUS_ENDPOINT = (
-  sellerId: string | number,
-  marketplace: string,
-  orderId: string | number,
-  shipmentId: string | number,
+  sellerId,
+  marketplace,
+  orderId,
+  shipmentId,
 ) =>
   `/kidal/v1/order/seller/${sellerId}/marketplace/${marketplace}/order/${orderId}/shipment/${shipmentId}/status`;
 
 // ANCHOR: productos
 // SECTION: productos-basico
 // INFO: Endpoints CRUD y operaciones de estado sobre productos y SKUs.
-export const PRODUCT_COLLECTION_ENDPOINT = (commerceId: string | number) =>
+export const PRODUCT_COLLECTION_ENDPOINT = (commerceId) =>
   `/cm/v2/product/commerce/${commerceId}/product`;
-export const PRODUCT_ITEM_ENDPOINT = (commerceId: string | number, productId: string | number) =>
+export const PRODUCT_ITEM_ENDPOINT = (commerceId, productId) =>
   `/cm/v2/product/commerce/${commerceId}/product/${productId}`;
-export const PRODUCT_PAUSE_ENDPOINT = (commerceId: string | number) =>
+export const PRODUCT_PAUSE_ENDPOINT = (commerceId) =>
   `/cm/v2/product/commerce/${commerceId}/pause/`;
-export const PRODUCT_ACTIVATE_ENDPOINT = (commerceId: string | number) =>
+export const PRODUCT_ACTIVATE_ENDPOINT = (commerceId) =>
   `/cm/v2/product/commerce/${commerceId}/active/`;
-export const PRODUCT_SKUS_ENDPOINT = (commerceId: string | number, productId: string | number) =>
+export const PRODUCT_SKUS_ENDPOINT = (commerceId, productId) =>
   `/cm/v2/product/commerce/${commerceId}/product/${productId}/sku`;
-export const PRODUCT_WEBHOOK_EDIT_ENDPOINT = (commerceId: string | number) =>
+export const PRODUCT_WEBHOOK_EDIT_ENDPOINT = (commerceId) =>
   `/cm/v2/product/webhook/commerce/${commerceId}/product/edit`;
 
 // ANCHOR: catalogos-adicionales
 // INFO: Endpoints complementarios de catálogo.
-export const CATEGORY_MATCHES_ENDPOINT = (categoryId: string | number) =>
+export const CATEGORY_MATCHES_ENDPOINT = (categoryId) =>
   `/cm/v2/sales_channel/category/${categoryId}/matches`;
 
 // ANCHOR: sales-channel
 // INFO: Endpoints para información de canales de venta asociados a un comercio.
-export const SALES_CHANNEL_COMMERCE_ENDPOINT = (commerceId: string | number) =>
+export const SALES_CHANNEL_COMMERCE_ENDPOINT = (commerceId) =>
   `/identity/v1/sales_channel/commerce/${commerceId}`;
 
 // ANCHOR: export-default

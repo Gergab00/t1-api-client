@@ -1,6 +1,6 @@
 {
   "name": "t1-api-client",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Cliente Node.js para la API T1Comercios. Permite autenticar, gestionar productos, subir archivos, consultar catálogos y pedidos.",
   "main": "src/index.js",
   "type": "commonjs",
