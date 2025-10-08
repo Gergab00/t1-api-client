@@ -1,58 +1,16 @@
 {
   "name": "t1-api-client",
-  "version": "1.0.2",
-  "description": "Cliente Node.js para la API T1Comercios. Permite autenticar, gestionar productos, subir archivos, consultar catálogos y pedidos.",
-  "main": "src/index.js",
-  "type": "commonjs",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Gergab00/t1-api-client.git"
-  },
-  "homepage": "https://github.com/Gergab00/t1-api-client#readme",
-  "bugs": {
-    "url": "https://github.com/Gergab00/t1-api-client/issues"
-  },
-  "engines": {
-    "node": ">=18"
-  },
-  "files": [
-    "src/**/*",
-    "openapi/**/*",
-    "README.md",
-    "LICENSE",
-    "CHANGELOG.md"
-  ],
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "prepare": "npm run build",
-    "build": "echo \"No hay paso de build necesario. El código fuente está en src/\"",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "t1",
-    "comercios",
-    "api",
-    "cliente",
-    "nodejs"
-  ],
-  "author": "Gerardo",
-  "license": "MIT",
-  "funding": "https://github.com/sponsors/Gergab00",
-  "dependencies": {
-    "axios": "^1.7.0",
-    "dotenv": "^16.4.0",
-    "form-data": "^4.0.0"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
   "devDependencies": {
-    "jest": "^29.6.1",
-    "nock": "^13.3.2",
-    "eslint": "^8.57.0",
-    "prettier": "^3.3.3",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.2.1",
-    "typescript": "^5.6.2"
+    "rimraf": "^6.0.1",
+    "typescript": "^5.9.3"
   }
 }
